@@ -1,0 +1,15 @@
+body{
+    text-align: center;
+    vertical-align: center;
+}
+.chessBoard {
+    border-collapse: collapse;
+    margin: auto;
+    margin-top:10px;
+}
+.chessBoard span {
+    width: 30px;
+    height: 30px;
+    border: 1px solid gray;
+    display: inline-block;
+}

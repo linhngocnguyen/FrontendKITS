@@ -1,0 +1,16 @@
+div{
+    padding: 20px;
+}
+
+.level-1{
+    border: 2px solid red;
+}
+
+.level-2{
+    border: 1px solid #FF00FF;
+    margin: 5px;
+}
+
+.level-3{
+    border: 1px dashed gray;
+}

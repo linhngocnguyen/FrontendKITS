@@ -1,0 +1,12 @@
+div{
+    padding: 20px;
+}
+
+.level-1{
+    border: 1.5px solid blue;
+}
+
+.level-2{
+    border: 1px solid green;
+    margin: 10px;
+}

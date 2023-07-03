@@ -1,0 +1,40 @@
+.calculator{
+    width: 201px;
+    background-color: #3A4655;
+    color: #fff;
+    display: inline-block;
+}
+.display{
+    width: 201px;
+    height: 70px;
+    border: 1px solid #ccc;
+}
+.calButton{
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #3A4655;
+    color: #fff;
+    font-size: 20px;
+    margin: auto;
+}
+.calButton:hover {
+    background: #E0B612;
+}
+.display .operate {
+    height: 30px;
+    font-size: 25px;
+}
+
+.content{
+    border: 1px solid black;
+    width: 200px;
+}
+
+.display .result {
+    height: 30px;
+    text-align: right;
+    font-size: 20px;
+    font-style: italic;
+    color: #fff
+}

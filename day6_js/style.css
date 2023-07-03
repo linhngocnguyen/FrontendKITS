@@ -1,0 +1,17 @@
+label{
+    width: 100px;
+    display: inline-block;
+    text-align: right;
+}
+select{
+    width: 170px;
+}
+.row{
+    margin-bottom: 10px;
+}
+.buttons{
+    text-align: center;
+    margin-bottom: 10px;
+    display: inline-block;
+    margin-left: 80px;
+}

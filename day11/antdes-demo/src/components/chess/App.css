@@ -1,0 +1,28 @@
+#root {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+  h2{
+    height: 50px;
+  }
+  .board{
+    margin-top: 35px;
+  }
+  .input-row {
+    margin: 5px;
+    text-align: center;
+    height: 50px;
+  }
+  
+  .input-row > label {
+    width: 100px;
+    display: inline-block;
+    text-align: end;
+    margin-right: 10px;
+  }
+  
+  .input-row > input {
+    width: 200px;
+    box-sizing: content-box;
+  }  
