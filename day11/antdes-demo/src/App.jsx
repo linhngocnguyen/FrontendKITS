@@ -1,9 +1,10 @@
+import { useState } from 'react';
 import { Layout, Space, Typography, Menu } from 'antd';
 import { AppstoreOutlined, StarOutlined, BorderOutlined, ClockCircleOutlined, CalculatorOutlined } from '@ant-design/icons';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { useState } from 'react';
-import ChessBoard from './components/chess/App';
+import { BrowserRouter as Router, Switch, Route, Link, useLocation } from "react-router-dom";
+import ChessBoard from './components/chess/ChessBoard';
 import Calculator from './components/calculator/Calculator'
+import Pomodoro from './components/pomodoro/Pomodoro';
 
 const { Header, Footer, Sider, Content } = Layout;
 const { Title, Text } = Typography;
@@ -22,25 +23,28 @@ const headerStyle = {
 
 const contentStyle = {
   textAlign: 'center',
-  minHeight: 120,
   lineHeight: '120px',
   color: 'black',
   backgroundColor: 'white',
-  height: '86vh'
+  height: '90vh'
 };
 
 const siderStyle = {
   textAlign: 'center',
-  lineHeight: '120px',
   color: 'black',
   backgroundColor: '#483285',
-  border: '1px light black'
+  border: '1px light black',
+  height: '90vh'
 };
 
 const footerStyle = {
   textAlign: 'center',
   color: 'rgba(44,56,74,.95)',
-  backgroundColor: '#ebedef'
+  backgroundColor: '#ebedef',
+  minHeight: '100',
+  position: 'fixed',
+  bottom: 0,
+  width: '100%'
 };
 
 const navigation = [
@@ -74,14 +78,6 @@ function HelloWorld() {
   );
 }
 
-function Pomodoro() {
-  return (
-    <div>
-      <h1>Pomodoro</h1>
-    </div>
-  );
-}
-
 function HomePage() {
   return (
     <div>
@@ -89,6 +85,33 @@ function HomePage() {
     </div>
   );
 }
+
+function MySider() {
+  const location = useLocation();
+  const selectedKey = location.pathname;
+
+  return (
+    <Sider style={siderStyle}>
+      <Menu selectedKeys={[selectedKey]}
+        mode="inline"
+        defaultSelectedKeys={['1']}
+        defaultOpenKeys={['sub1']}
+        style={{
+          height: '100%',
+          backgroundColor: '#3c4b64',
+          color: 'hsla(0,0%,100%,.6)'
+        }}
+      >
+        {navigation.map((item) => (
+          <Menu.Item key={item.key} icon={item.icon}>
+            <Link to={item.key}>{item.label}</Link>
+          </Menu.Item>
+        ))}
+      </Menu>
+    </Sider>
+  );
+}
+
 function App() {
   const [currentComponent, setCurrentComponent] = useState("Hello World");
 
@@ -112,26 +135,9 @@ function App() {
             </Title>
           </Header>
           <Layout hasSider>
-            <Sider style={siderStyle}>
-              <Menu
-                mode="inline"
-                defaultSelectedKeys={['1']}
-                defaultOpenKeys={['sub1']}
-                style={{
-                  height: '100%',
-                  backgroundColor: '#3c4b64',
-                  color: 'hsla(0,0%,100%,.6)'
-                }}
-              >
-                {navigation.map((item) => (
-                  <Menu.Item key={item.key} icon={item.icon}>
-                    <Link to={item.key} onClick={() => setCurrentComponent(item.label)}>{item.label}</Link>
-                  </Menu.Item>
-                ))}
-              </Menu>
-            </Sider>
+            <MySider />
             <Content style={contentStyle}>
-              <Switch> 
+              <Switch>
                 <Route path="/hello-world">
                   <HelloWorld />
                 </Route>

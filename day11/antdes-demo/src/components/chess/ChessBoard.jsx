@@ -1,27 +1,34 @@
-import { useState } from "react";
+import { useState } from 'react';
 import { Button, InputNumber, ColorPicker, Space, message } from 'antd';
-import "./App.css";
-import Board from "./board/";
+import './ChessBoard.css';
+import Board from './board';
 
-const ChessBoard = () => {
+function hexToRgb(hex) {
+  const r = parseInt(hex.substring(1, 3), 16);
+  const g = parseInt(hex.substring(3, 5), 16);
+  const b = parseInt(hex.substring(5, 7), 16);
+  return `rgb(${r}, ${g}, ${b})`;
+}
+
+function ChessBoard() {
   const [size, setSize] = useState(null);
-  const [colorOdd, setColorOdd] = useState("#C0C0C0");
-  const [colorEven, setColorEven] = useState("#000000");
+  const [colorOdd, setColorOdd] = useState('#C0C0C0');
+  const [colorEven, setColorEven] = useState('#000000');
   const [isFlip, setIsFlip] = useState(false);
 
   const handleOddColorChange = (color) => {
-    setColorOdd(color);
+    setColorOdd(hexToRgb(color));
   };
 
   const handleEvenColorChange = (color) => {
-    setColorEven(color);
+    setColorEven(hexToRgb(color));
   };
 
   const handleCreateBoard = () => {
     if (size && size >= 1 && size <= 19) {
       message.success(`Created a ${size}x${size} chessboard!`);
     } else {
-      message.error("Please enter a valid board size (1-19).");
+      message.error('Please enter a valid board size (1-19).');
     }
   };
 
@@ -43,40 +50,29 @@ const ChessBoard = () => {
       <div className="input-row">
         <label>Board size:</label>
         <InputNumber
-          min={1} max={19}
+          min={1}
+          max={19}
           defaultValue={null}
-          value={size} onChange={setSize}
+          value={size}
+          onChange={setSize}
         />
-        <Button
-          type="primary"
-          onClick={handleCreateBoard}
-        >
+        <Button type="primary" onClick={handleCreateBoard}>
           Create
         </Button>
       </div>
 
       <Space className="input-row" labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>
         <label>Odd cell:</label>
-        <ColorPicker
-          color={colorOdd}
-          onChange={handleOddColorChange}
-        />
+        <ColorPicker color={colorOdd} onChange={handleOddColorChange} />
       </Space>
 
       <Space className="input-row" labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>
         <label>Even cell:</label>
-        <ColorPicker
-          color={colorEven}
-          onChange={handleEvenColorChange}
-        />
+        <ColorPicker color={colorEven} onChange={handleEvenColorChange} />
       </Space>
 
       <div className="board">
-        <Board
-          size={size}
-          getCellColor={getCellColor}
-          onCellClick={handleCellClick}
-        />
+        <Board size={size} getCellColor={getCellColor} onCellClick={handleCellClick} />
       </div>
 
       <div className="input-row">
@@ -84,6 +80,6 @@ const ChessBoard = () => {
       </div>
     </>
   );
-};
+}
 
 export default ChessBoard;
