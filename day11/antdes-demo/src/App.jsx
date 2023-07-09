@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { Layout, Space, Typography, Menu } from 'antd';
-import { AppstoreOutlined, StarOutlined, BorderOutlined, ClockCircleOutlined, CalculatorOutlined } from '@ant-design/icons';
+import { AppstoreOutlined, StarOutlined, BorderOutlined, ClockCircleOutlined, CalculatorOutlined, ArrowsAltOutlined } from '@ant-design/icons';
 import { BrowserRouter as Router, Switch, Route, Link, useLocation } from "react-router-dom";
 import ChessBoard from './components/chess/ChessBoard';
 import Calculator from './components/calculator/Calculator'
 import Pomodoro from './components/pomodoro/Pomodoro';
+import UnitConverter from './components/unit-converter/UnitConverter';
 
 const { Header, Footer, Sider, Content } = Layout;
 const { Title, Text } = Typography;
@@ -67,6 +68,11 @@ const navigation = [
     key: '/pomodoro',
     label: 'Pomodoro',
     icon: <ClockCircleOutlined />
+  },
+  {
+    key: '/unit-converter',
+    label: 'Unit Converter',
+    icon: <ArrowsAltOutlined />
   }
 ];
 
@@ -113,8 +119,6 @@ function MySider() {
 }
 
 function App() {
-  const [currentComponent, setCurrentComponent] = useState("Hello World");
-
   return (
     <Router>
       <Space
@@ -140,6 +144,9 @@ function App() {
               <Switch>
                 <Route path="/hello-world">
                   <HelloWorld />
+                </Route>
+                <Route path="/unit-converter">
+                  <UnitConverter />
                 </Route>
                 <Route path="/calculator">
                   <Calculator />
