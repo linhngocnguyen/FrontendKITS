@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch, Route, Link, useLocation } from "react
 import ChessBoard from './components/chess/ChessBoard';
 import Calculator from './components/calculator/Calculator'
 import Pomodoro from './components/pomodoro/Pomodoro';
-
+import QuoteOfTheDay from './components/quote/QuoteOfTheDay'
 const { Header, Footer, Sider, Content } = Layout;
 const { Title, Text } = Typography;
 
@@ -152,6 +152,7 @@ function App() {
                 </Route>
                 <Route exact path="/">
                   <HomePage />
+                  <QuoteOfTheDay />
                 </Route>
               </Switch>
             </Content>
