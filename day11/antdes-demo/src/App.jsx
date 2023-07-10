@@ -159,6 +159,7 @@ function App() {
                 </Route>
                 <Route exact path="/">
                   <HomePage />
+                  <QuoteOfTheDay />
                 </Route>
               </Switch>
             </Content>

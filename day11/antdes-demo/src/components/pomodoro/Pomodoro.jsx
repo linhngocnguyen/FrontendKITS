@@ -1,20 +1,23 @@
-import './Pomodoro.css'
-import { useState, useEffect} from 'react';
+import './Pomodoro.css';
+import { useState, useEffect } from 'react';
+import { Button, InputNumber, Form, Layout, Typography, Space } from 'antd';
+const { Title } = Typography;
+const { Header, Content } = Layout;
 
 function Pomodoro() {
-  const [secondsLeft, setSecondsLeft] = useState(10);
+  const [secondsLeft, setSecondsLeft] = useState(60);
   const [isRunning, setIsRunning] = useState(false);
   const [isBreak, setIsBreak] = useState(false);
-  const [workingTime, setWorkingTime] = useState(120);
+  const [workingTime, setWorkingTime] = useState(60);
   const [breakTime, setBreakTime] = useState(60);
   const [showSettings, setShowSettings] = useState(false);
 
   let [now, setNow] = useState(new Date());
 
-  useEffect(() =>{
-    setTimeout(() =>{
+  useEffect(() => {
+    setTimeout(() => {
       setNow(new Date());
-    }, 1000)
+    }, 1000);
   }, [now]);
 
   useEffect(() => {
@@ -50,7 +53,7 @@ function Pomodoro() {
     setIsRunning(false);
   }
 
-  function reset(){
+  function reset() {
     setIsBreak(false);
     setIsRunning(false);
     setSecondsLeft(workingTime);
@@ -59,27 +62,25 @@ function Pomodoro() {
   function formatTime(secondsLeft) {
     let mins = parseInt(secondsLeft / 60);
     let secs = parseInt(secondsLeft % 60);
-    if(mins < 10){
-      mins='0'+mins;
+    if (mins < 10) {
+      mins = '0' + mins;
     }
-    if (secs < 10){
-      secs='0'+secs;
+    if (secs < 10) {
+      secs = '0' + secs;
     }
-    return (
-      `${mins}:${secs}`
-    )
+    return `${mins}:${secs}`;
   }
 
-  function handleWorkingTimeChange(event) {
-    const newWorkingTime = parseInt(event.target.value) * 60;
+  function handleWorkingTimeChange(value) {
+    const newWorkingTime = parseInt(value) * 60;
     setWorkingTime(newWorkingTime);
     if (!isBreak) {
       setSecondsLeft(newWorkingTime);
     }
   }
 
-  function handleBreakTimeChange(event) {
-    const newBreakTime = parseInt(event.target.value) * 60;
+  function handleBreakTimeChange(value) {
+    const newBreakTime = parseInt(value) * 60;
     setBreakTime(newBreakTime);
     if (isBreak) {
       setSecondsLeft(newBreakTime);
@@ -92,58 +93,71 @@ function Pomodoro() {
     reset();
   }
 
-  const backgroundMode = `pomodoro ${isBreak? 'break' : 'work'}`;
-  const buttonMode = `buttons ${isBreak? 'break1' : 'work1'}`;
+  const backgroundMode = `pomodoro ${isBreak ? 'break' : 'work'}`;
+  const buttonMode = `buttons ${isBreak ? 'break1' : 'work1'}`;
   return (
-    <>
-      <div className={backgroundMode}>
-        <h2>Pomodoro Clock</h2>
-        <div className='time-now'>
-          {now.toLocaleTimeString()}
-        </div>
-        <div className="message">
-          {isBreak ? 'Break time': 'Working time'}
-        </div>
-        <div className="timer">
-            {formatTime(secondsLeft)}
-        </div>
-        <div className='buttons'>
+    <Layout className={backgroundMode}>
+      <Header style={{background: 'transparent'}}>
+        <Title level={2} style={{color: 'white'}}>Pomodoro Clock</Title>
+      </Header>
+      <Content>
+        <Space direction='vertical' className='time-now' style={{ display: 'flex' }}>{now.toLocaleTimeString()}</Space>
+        <Space direction='vertical' className='message' style={{ display: 'flex' }}>{isBreak ? 'Break time' : 'Working time'}</Space>
+        <Space direction='vertical' className='timer' style={{ display: 'flex' }}>{formatTime(secondsLeft)}</Space>
+        <Space className='buttons' style={{ display: 'flex' }}>
           {!isRunning ? (
-            <button className={buttonMode}  onClick={start}>Start</button>
+            <Button className={buttonMode} onClick={start}>
+              Start
+            </Button>
           ) : (
-            <button className={buttonMode} onClick={stop}>Stop</button>
+            <Button className={buttonMode} onClick={stop}>
+              Stop
+            </Button>
           )}
-          <button className={buttonMode} onClick={reset}>Reset</button>
-          <button className={buttonMode} onClick={() => {!showSettings? setShowSettings(true): setShowSettings(false)}}>Settings</button>
-        </div>
+          <Button className={buttonMode} onClick={reset}>
+            Reset
+          </Button>
+          <Button
+            className={buttonMode}
+            onClick={() => {
+              !showSettings ? setShowSettings(true) : setShowSettings(false);
+            }}
+          >
+            Settings
+          </Button>
+        </Space>
         <div className='settings'>
           {showSettings && (
-            <form onSubmit={handleSettingsSubmit}>
-              <label>
-                Working Time (minutes):
-                <input
-                  type="number"
-                  value={workingTime / 60}
+            <Form onSubmit={handleSettingsSubmit}>
+              <Form.Item label='Working Time (minutes):'>
+                <InputNumber
+                  min={1}
+                  max={60}
+                  defaultValue={workingTime / 60}
                   onChange={handleWorkingTimeChange}
                 />
-              </label>
-              <br />
-              <label>
-                Break Time (minutes):
-                <input
-                  type="number"
-                  value={breakTime / 60}
+              </Form.Item>
+              <Form.Item label='Break Time (minutes):'>
+                <InputNumber
+                  min={1}
+                  max={60}
+                  defaultValue={breakTime / 60}
                   onChange={handleBreakTimeChange}
                 />
-              </label>
-              <br />
-              <button className={buttonMode} type="submit">Apply</button>
-            </form>
+              </Form.Item>
+              <Form.Item>
+                <Button className={buttonMode} type='default' htmlType='submit' onClick={() => {
+                    !showSettings ? setShowSettings(true) : setShowSettings(false);
+                }}>
+                  Apply
+                </Button>
+              </Form.Item>
+            </Form>
           )}
         </div>
-      </div>
-    </>
-  )
-}
-
-export default Pomodoro;
+      </Content>
+   <Layout>
+    </Layout>
+    </Layout>
+  )}
+export default Pomodoro

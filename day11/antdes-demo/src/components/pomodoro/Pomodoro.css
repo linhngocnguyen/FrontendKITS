@@ -6,7 +6,7 @@
     font-family: sans-serif;
     background-color: rgb(186, 73, 73);
     color: white;
-    height: 90%;
+    height: 100%;
   }
   .pomodoro.break{
     background-color: rgb(56, 133, 138);
@@ -78,6 +78,7 @@
     width: 280px;
     text-align: right;
     font-weight: bold;
+    color: white;
   }
 
   form button {
@@ -89,4 +90,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+  :where(.css-dev-only-do-not-override-12upa3x).ant-form-item .ant-form-item-label >label{
+    color: white;
   }
