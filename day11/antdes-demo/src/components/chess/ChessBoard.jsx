@@ -4,7 +4,7 @@ import { Layout, Space, Typography, InputNumber} from "antd";
 import Board from "./board/Board";
 const {Title, Text} = Typography
 const Chessboard = () => {
-  const [size, setSize] = useState(1);
+  const [size, setSize] = useState(0);
   const [colorOdd, setColorOdd] = useState("#C0C0C0");
   const [colorEven, setColorEven] = useState("#000000");
   const [isFlip, setIsFlip] = useState(false);
@@ -19,15 +19,15 @@ const Chessboard = () => {
 
   return (
     <>
-    <Layout style={{alignItems: "center", height: '82vh'}}>
+    <Layout style={{alignItems: "center", height: '100%'}} className="chess">
       <Title level={2}>Chessboard</Title>
       <Space style={{height: 50}}>
-        <Text>Board size: </Text>
-        <InputNumber min={1} max={13} placeholder="Input size" onChange={(value) => setSize(value)} />
+        <Text strong>Board size: </Text>
+        <InputNumber min={1} max={20} placeholder="Input size" onChange={(value) => setSize(value)} />
       </Space>
  
       <Space className="input-row">
-        <label>Odd cell: </label>
+        <Text strong>Odd cell: </Text>
         <input
           type="color"
           id="head"
@@ -38,7 +38,7 @@ const Chessboard = () => {
       </Space>
 
       <Space className="input-row">
-        <label>Even cell: </label>
+        <Text strong>Even cell: </Text>
         <input
           type="color"
           id="head"

@@ -97,7 +97,7 @@ function Pomodoro() {
   const buttonMode = `buttons ${isBreak ? 'break1' : 'work1'}`;
   return (
     <Layout className={backgroundMode}>
-      <Header style={{background: 'transparent'}}>
+      <Header style={{background: 'transparent', marginTop: 20}}>
         <Title level={2} style={{color: 'white'}}>Pomodoro Clock</Title>
       </Header>
       <Content>
@@ -126,10 +126,10 @@ function Pomodoro() {
             Settings
           </Button>
         </Space>
-        <div className='settings'>
+        <Space className='settings'>
           {showSettings && (
-            <Form onSubmit={handleSettingsSubmit}>
-              <Form.Item label='Working Time (minutes):'>
+            <Form onSubmit={handleSettingsSubmit} className='timeSettings'>
+              <Form.Item label='Working Time (minutes):' >
                 <InputNumber
                   min={1}
                   max={60}
@@ -154,7 +154,7 @@ function Pomodoro() {
               </Form.Item>
             </Form>
           )}
-        </div>
+        </Space>
       </Content>
    <Layout>
     </Layout>

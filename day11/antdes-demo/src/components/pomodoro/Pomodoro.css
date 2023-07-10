@@ -78,7 +78,6 @@
     width: 280px;
     text-align: right;
     font-weight: bold;
-    color: white;
   }
 
   form button {
@@ -91,6 +90,7 @@
     flex-direction: column;
     align-items: center;
   }
-  :where(.css-dev-only-do-not-override-12upa3x).ant-form-item .ant-form-item-label >label{
+
+  div.ant-col.ant-form-item-label.css-dev-only-do-not-override-12upa3x > label{
     color: white;
   }

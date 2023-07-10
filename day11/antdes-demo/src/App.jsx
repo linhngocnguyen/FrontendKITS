@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Layout, Space, Typography, Menu } from 'antd';
 import { AppstoreOutlined, StarOutlined, BorderOutlined, ClockCircleOutlined, CalculatorOutlined, ArrowsAltOutlined } from '@ant-design/icons';
 import { BrowserRouter as Router, Switch, Route, Link, useLocation } from "react-router-dom";
@@ -13,7 +12,7 @@ const { Title, Text } = Typography;
 const headerStyle = {
   height: 64,
   lineHeight: '64px',
-  backgroundColor: '#3c4b64',
+  backgroundColor: '#2a2b36',
   width: '100%',
   fontSize: '10px',
   fontWeight: 'bold',
@@ -24,10 +23,9 @@ const headerStyle = {
 
 const contentStyle = {
   textAlign: 'center',
-  lineHeight: '120px',
   color: 'black',
   backgroundColor: 'white',
-  height: '90vh'
+  lineHeight: '100px',
 };
 
 const siderStyle = {
@@ -55,6 +53,11 @@ const navigation = [
     icon: <StarOutlined />
   },
   {
+    key: '/unit-converter',
+    label: 'Unit Converter',
+    icon: <ArrowsAltOutlined />
+  },
+  {
     key: '/calculator',
     label: 'Calculator',
     icon: <CalculatorOutlined />
@@ -68,11 +71,6 @@ const navigation = [
     key: '/pomodoro',
     label: 'Pomodoro',
     icon: <ClockCircleOutlined />
-  },
-  {
-    key: '/unit-converter',
-    label: 'Unit Converter',
-    icon: <ArrowsAltOutlined />
   }
 ];
 
@@ -159,7 +157,6 @@ function App() {
                 </Route>
                 <Route exact path="/">
                   <HomePage />
-                  <QuoteOfTheDay />
                 </Route>
               </Switch>
             </Content>
