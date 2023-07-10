@@ -1,13 +1,13 @@
 import "./Row.css";
-import Cell from "../cell";
+import Cell from "../cell/Cell";
 
-function Row(props) {
+function Row({size, row, colorOdd, colorEven, isFlip}) {
   const rows = [];
-  for (let i = 0; i < props.size; i++) {
+  for (let i = 0; i < size; i++) {
     rows.push(i);
   }
 
-  if (props.row % 2 === 1) {
+  if (row % 2 === 1) {
     return (
       <div className="row">
         {rows.map((row, index) => {
@@ -15,9 +15,9 @@ function Row(props) {
             <Cell
               key={index}
               cell={row}
-              colorOdd={props.colorOdd}
-              colorEven={props.colorEven}
-              isFlip={props.isFlip} />
+              colorOdd={colorOdd}
+              colorEven={colorEven}
+              isFlip={isFlip} />
           );
         })}
       </div>
@@ -30,9 +30,9 @@ function Row(props) {
             <Cell
               key={index}
               cell={row + 1}
-              colorOdd={props.colorOdd}
-              colorEven={props.colorEven}
-              isFlip={props.isFlip} />
+              colorOdd={colorOdd}
+              colorEven={colorEven}
+              isFlip={isFlip} />
           );
         })}
       </div>

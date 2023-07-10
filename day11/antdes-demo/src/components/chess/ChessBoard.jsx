@@ -1,85 +1,64 @@
-import { useState } from 'react';
-import { Button, InputNumber, ColorPicker, Space, message } from 'antd';
-import './ChessBoard.css';
-import Board from './board';
-
-function hexToRgb(hex) {
-  const r = parseInt(hex.substring(1, 3), 16);
-  const g = parseInt(hex.substring(3, 5), 16);
-  const b = parseInt(hex.substring(5, 7), 16);
-  return `rgb(${r}, ${g}, ${b})`;
-}
-
-function ChessBoard() {
-  const [size, setSize] = useState(null);
-  const [colorOdd, setColorOdd] = useState('#C0C0C0');
-  const [colorEven, setColorEven] = useState('#000000');
+import { useState } from "react";
+import "./ChessBoard.css";
+import { Layout, Space, Typography, InputNumber} from "antd";
+import Board from "./board/Board";
+const {Title, Text} = Typography
+const Chessboard = () => {
+  const [size, setSize] = useState(1);
+  const [colorOdd, setColorOdd] = useState("#C0C0C0");
+  const [colorEven, setColorEven] = useState("#000000");
   const [isFlip, setIsFlip] = useState(false);
 
-  const handleOddColorChange = (color) => {
-    setColorOdd(hexToRgb(color));
-  };
-
-  const handleEvenColorChange = (color) => {
-    setColorEven(hexToRgb(color));
-  };
-
-  const handleCreateBoard = () => {
-    if (size && size >= 1 && size <= 19) {
-      message.success(`Created a ${size}x${size} chessboard!`);
-    } else {
-      message.error('Please enter a valid board size (1-19).');
-    }
-  };
-
-  const handleCellClick = () => {
+  const flip = () => {
     setIsFlip(!isFlip);
-  };
-
-  const getCellColor = (row, col) => {
-    if (isFlip) {
-      return (row + col) % 2 === 0 ? colorOdd : colorEven;
-    } else {
-      return (row + col) % 2 === 0 ? colorEven : colorOdd;
+    if (isFlip) { 
+      setColorEven(colorOdd);
+      setColorOdd(colorEven);
     }
   };
 
   return (
     <>
-      <h2>Chessboard</h2>
-      <div className="input-row">
-        <label>Board size:</label>
-        <InputNumber
-          min={1}
-          max={19}
-          defaultValue={null}
-          value={size}
-          onChange={setSize}
+    <Layout style={{alignItems: "center", height: '82vh'}}>
+      <Title level={2}>Chessboard</Title>
+      <Space style={{height: 50}}>
+        <Text>Board size: </Text>
+        <InputNumber min={1} max={13} placeholder="Input size" onChange={(value) => setSize(value)} />
+      </Space>
+ 
+      <Space className="input-row">
+        <label>Odd cell: </label>
+        <input
+          type="color"
+          id="head"
+          name="head"
+          value={colorOdd}
+          onChange={(e) => setColorOdd(e.target.value)}
+        ></input>
+      </Space>
+
+      <Space className="input-row">
+        <label>Even cell: </label>
+        <input
+          type="color"
+          id="head"
+          name="head"
+          value={colorEven}
+          onChange={(e) => setColorEven(e.target.value)}
+        ></input>
+      </Space>
+
+      <Space className="board" style={{marginTop: 10}}>
+        <Board
+          size={size}
+          colorOdd={colorOdd}
+          colorEven={colorEven}
+          isFlip={flip}
         />
-        <Button type="primary" onClick={handleCreateBoard}>
-          Create
-        </Button>
-      </div>
-
-      <Space className="input-row" labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>
-        <label>Odd cell:</label>
-        <ColorPicker color={colorOdd} onChange={handleOddColorChange} />
       </Space>
-
-      <Space className="input-row" labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>
-        <label>Even cell:</label>
-        <ColorPicker color={colorEven} onChange={handleEvenColorChange} />
-      </Space>
-
-      <div className="board">
-        <Board size={size} getCellColor={getCellColor} onCellClick={handleCellClick} />
-      </div>
-
-      <div className="input-row">
-        <Button onClick={() => setIsFlip(!isFlip)}>Flip board</Button>
-      </div>
+      </Layout>
     </>
   );
-}
+};
 
-export default ChessBoard;
+export default Chessboard;
