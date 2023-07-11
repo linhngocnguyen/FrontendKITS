@@ -20,7 +20,7 @@ const Chessboard = () => {
   return (
     <>
     <Layout style={{alignItems: "center", height: '100%'}} className="chess">
-      <Title level={2}>Chessboard</Title>
+      <Title style={{marginTop: 10}} level={2}>Chessboard</Title>
       <Space style={{height: 50}}>
         <Text strong>Board size: </Text>
         <InputNumber min={1} max={20} placeholder="Input size" onChange={(value) => setSize(value)} />

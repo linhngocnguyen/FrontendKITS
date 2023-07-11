@@ -1,10 +1,12 @@
-import { Layout, Space, Typography, Menu } from 'antd';
-import { AppstoreOutlined, StarOutlined, BorderOutlined, ClockCircleOutlined, CalculatorOutlined, ArrowsAltOutlined } from '@ant-design/icons';
+import { Layout, Space, Typography, Menu, Button, Image } from 'antd';
+import { AppstoreOutlined, StarOutlined, BorderOutlined, ClockCircleOutlined, CalculatorOutlined, MenuOutlined, ArrowsAltOutlined} from '@ant-design/icons';
 import { BrowserRouter as Router, Switch, Route, Link, useLocation } from "react-router-dom";
+import { useState } from 'react';
 import ChessBoard from './components/chess/ChessBoard';
 import Calculator from './components/calculator/Calculator'
 import Pomodoro from './components/pomodoro/Pomodoro';
 import UnitConverter from './components/unit-converter/UnitConverter';
+import Kits from './assets/kits.jpg'
 
 const { Header, Footer, Sider, Content } = Layout;
 const { Title, Text } = Typography;
@@ -16,9 +18,7 @@ const headerStyle = {
   width: '100%',
   fontSize: '10px',
   fontWeight: 'bold',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
+  alignItems: 'center'
 };
 
 const contentStyle = {
@@ -32,7 +32,7 @@ const siderStyle = {
   textAlign: 'center',
   color: 'black',
   backgroundColor: '#483285',
-  border: '1px light black',
+  border: '1px solid #ccc',
   height: '90vh'
 };
 
@@ -55,7 +55,7 @@ const navigation = [
   {
     key: '/unit-converter',
     label: 'Unit Converter',
-    icon: <ArrowsAltOutlined />
+    icon: <ArrowsAltOutlined /> 
   },
   {
     key: '/calculator',
@@ -90,16 +90,14 @@ function HomePage() {
   );
 }
 
-function MySider() {
+// eslint-disable-next-line react/prop-types
+function MySider({collapsed, toggleCollapsed}) {
   const location = useLocation();
   const selectedKey = location.pathname;
-
   return (
-    <Sider style={siderStyle}>
+    <Sider collapsed={collapsed} onCollapse={toggleCollapsed} style={siderStyle}>
       <Menu selectedKeys={[selectedKey]}
         mode="inline"
-        defaultSelectedKeys={['1']}
-        defaultOpenKeys={['sub1']}
         style={{
           height: '100%',
           backgroundColor: '#3c4b64',
@@ -117,6 +115,10 @@ function MySider() {
 }
 
 function App() {
+  const [collapsed, setCollapsed] = useState(false);
+  const toggleCollapsed = () => {
+    setCollapsed(!collapsed);
+  };
   return (
     <Router>
       <Space
@@ -128,16 +130,21 @@ function App() {
       >
         <Layout>
           <Header style={headerStyle}>
-            <Title style={{
-              fontSize: 20,
-              color: 'white',
-              marginTop: 15
-            }}>
-              <AppstoreOutlined /> Demo applications using AntDesign
-            </Title>
+            <Space align="left">
+              <Image src={Kits} style={{width: 32, height: 32}}/>
+              {/* <Title style={{
+                fontSize: 20,
+                color: 'white',
+                marginTop: 15
+              }}>
+                <AppstoreOutlined /> Demo applications using AntDesign */}
+                <Button type="primary" onClick={toggleCollapsed}>
+                <MenuOutlined />
+              </Button>
+            </Space>
           </Header>
           <Layout hasSider>
-            <MySider />
+            <MySider collapsed={collapsed}/>
             <Content style={contentStyle}>
               <Switch>
                 <Route path="/hello-world">
@@ -155,14 +162,14 @@ function App() {
                 <Route path="/pomodoro">
                   <Pomodoro />
                 </Route>
-                <Route exact path="/">
+                <Route path="/">
                   <HomePage />
                 </Route>
               </Switch>
             </Content>
           </Layout>
           <Footer style={footerStyle}>
-            <Text italic>©2023 Copyright by LinhNN</Text>
+            <Text strong italic>Ant Design Demo ©2023 Created by LinhNN</Text>
           </Footer>
         </Layout>
       </Space>

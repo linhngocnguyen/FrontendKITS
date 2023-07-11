@@ -14,11 +14,11 @@ const UnitConverter = () => {
   const convertLength = (value, from, to) => {
     const conversions = {
       meters: 1,
-      feet: 3.28084,
-      miles: 0.000621371,
+      feet: 0.3048,
+      miles: 1609.344,
       kilometers: 1000,
-      yards: 1.09361,
-      inches: 39.3701
+      yards: 0.9144,
+      inches: 0.0254
     };
     const fromValue = conversions[from];
     const toValue = conversions[to];
@@ -28,10 +28,10 @@ const UnitConverter = () => {
   const convertMass = (value, from, to) => {
     const conversions = {
       kilograms: 1,
-      pounds: 2.20462,
-      ounces: 35.274,
-      grams: 1000,
-      tons: 0.001
+      pounds: 0.45359237,
+      ounces: 0.0283495231,
+      grams: 0.001,
+      tons: 1000
     };
     const fromValue = conversions[from];
     const toValue = conversions[to];
@@ -92,15 +92,15 @@ const UnitConverter = () => {
   };
 
   let convertedValue;
-if (fromUnit === toUnit) {
-  convertedValue = inputValue;
-} else if (unitType === 'length') {
-  convertedValue = convertLength(inputValue, fromUnit, toUnit);
-} else if (unitType === 'mass') {
-  convertedValue = convertMass(inputValue, fromUnit, toUnit);
-} else if (unitType === 'currency' && fromUnit !== '' && toUnit !== '' && fromUnit !== toUnit) {
-  convertedValue = convertCurrency(inputValue, fromUnit, toUnit).toFixed(2);
-}
+  if (fromUnit === toUnit) {
+    convertedValue = inputValue;
+  } else if (unitType === 'length') {
+    convertedValue = convertLength(inputValue, fromUnit, toUnit);
+  } else if (unitType === 'mass') {
+    convertedValue = convertMass(inputValue, fromUnit, toUnit);
+  } else if (unitType === 'currency' && fromUnit !== '' && toUnit !== '' && fromUnit !== toUnit) {
+    convertedValue = convertCurrency(inputValue, fromUnit, toUnit).toFixed(2);
+  }
 
   let unitOptions;
   if (unitType === 'length') {
@@ -114,43 +114,39 @@ if (fromUnit === toUnit) {
   return (
     <Layout className='unit-converter'>
       <Title level={2}>Unit Converter</Title>
-      <Space>
-        <Text strong>Input value:</Text>
-        <InputNumber min={0} value={inputValue} style={{width: 150}} onChange={handleInputChange} />
+      <Space className='input-container'>
+        <Text strong className='input-label'>Input value:</Text>
+        <InputNumber min={0} value={inputValue} className='input-number' onChange={handleInputChange} />
       </Space>
-      <Space>
-        <Text strong>Unit type:</Text>
-        <Select value={unitType} onChange={handleUnitTypeChange} style={{width: 150}}>
-          <Option value="length">Length</Option>
-          <Option value="mass">Mass</Option>
-          <Option value="currency">Currency</Option>
+      <Space className='unit-type-container'>
+        <Text strong className='input-label'>Unit type:</Text>
+        <Select value={unitType} onChange={handleUnitTypeChange} className='unit-type-select'>
+          <Option value='--Select an unit--' disabled>--Select an unit--</Option>
+          <Option value='length'>Length</Option>
+          <Option value='mass'>Mass</Option>
+          <Option value='currency'>Currency</Option>
         </Select>
       </Space>
-      <Space>
-        <Text strong>From unit:</Text>
-        <Select value={fromUnit} onChange={handleFromUnitChange} placeholder="Select unit" disabled={!unitOptions} style={{width: '150px'}}>
-          {unitOptions && unitOptions.map((unit) => (
-           <Option key={unit} value={unit}>{unit}</Option>
-          ))}
-        </Select>
-      </Space>
-      <Space>
-        <Button onClick={handleUnitReverse}>Swap Units</Button>
-      </Space>
-      <Space>
-        <Text strong>To unit:</Text>
-        <Select value={toUnit} onChange={handleToUnitChange} placeholder="Select unit" disabled={!unitOptions} style={{width: '150px'}}>
-          {unitOptions && unitOptions.map((unit) => (
-            <Option key={unit} value={unit}>{unit}</Option>
-          ))}
-        </Select>
-      </Space>
-      <Space>
-        <Text strong>Converted value:</Text>
-        <Text>{convertedValue}</Text>
-      </Space>
+      {unitType !== '--Select an unit--' && (
+        <>
+          <Space className='unit-select-container'>
+            <Text strong className='input-label'>From:</Text>
+            <Select value={fromUnit} onChange={handleFromUnitChange} className='unit-select'>
+              {unitOptions.map((unit) => (
+                <Option key={unit} value={unit} disabled={unit === '--Select an unit--'}>{unit}</Option>
+              ))}
+            </Select>
+            <Button type='primary' onClick={handleUnitReverse} className='reverse-button'>↔</Button>
+            <Select value={toUnit} onChange={handleToUnitChange} className='unit-select'>
+              {unitOptions.map((unit) => (
+                <Option key={unit} value={unit} disabled={unit === '--Select an unit--'}>{unit}</Option>
+              ))}
+            </Select>
+          </Space>
+          <Text className='converted-value'>{convertedValue > 0 && fromUnit && toUnit ? `${convertedValue} ${toUnit}` : ''} </Text>
+        </>
+      )}
     </Layout>
   );
 };
-
 export default UnitConverter;
