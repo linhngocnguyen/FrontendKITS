@@ -1,8 +1,9 @@
+import { Space } from "antd";
 function Display({value, result}){
     return(
         <div className="display">   
-            <div className="operate"> {value}</div>
-            <div className="result"> {result}</div>
+            <Space className="operate"> {value}</Space>
+            <Space className="result"> {result}</Space>
         </div>
     )
 }

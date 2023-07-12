@@ -1,5 +1,5 @@
-import { Layout, Space, Typography, Menu, Button, Image } from 'antd';
-import { AppstoreOutlined, StarOutlined, BorderOutlined, ClockCircleOutlined, CalculatorOutlined, MenuOutlined, ArrowsAltOutlined} from '@ant-design/icons';
+import { Layout, Space, Typography, Menu, Button, Image} from 'antd';
+import { BorderOutlined, ClockCircleOutlined, CalculatorOutlined, MenuOutlined, ArrowsAltOutlined, RedditOutlined} from '@ant-design/icons';
 import { BrowserRouter as Router, Switch, Route, Link, useLocation } from "react-router-dom";
 import { useState } from 'react';
 import ChessBoard from './components/chess/ChessBoard';
@@ -7,38 +7,41 @@ import Calculator from './components/calculator/Calculator'
 import Pomodoro from './components/pomodoro/Pomodoro';
 import UnitConverter from './components/unit-converter/UnitConverter';
 import Kits from './assets/kits.jpg'
+import ZodiacApp from './components/zodiac/Zodiac';
 
 const { Header, Footer, Sider, Content } = Layout;
 const { Title, Text } = Typography;
 
 const headerStyle = {
   height: 64,
-  lineHeight: '64px',
-  backgroundColor: '#2a2b36',
+  backgroundColor: 'deepskyblue',
   width: '100%',
-  fontSize: '10px',
+  fontSize: '14px',
   fontWeight: 'bold',
-  alignItems: 'center'
+  display: 'flex',
+  alignItems: 'center',
+  color: '#ffffff',
+  paddingLeft: '24px'
 };
 
 const contentStyle = {
   textAlign: 'center',
   color: 'black',
-  backgroundColor: 'white',
+  backgroundColor: '#f5f5f5',
   lineHeight: '100px',
 };
 
 const siderStyle = {
   textAlign: 'center',
-  color: 'black',
-  backgroundColor: '#483285',
+  color: '#ffffff',
+  backgroundColor: '#001529',
   border: '1px solid #ccc',
   height: '90vh'
 };
 
 const footerStyle = {
   textAlign: 'center',
-  color: 'rgba(44,56,74,.95)',
+  color: '#2c384a',
   backgroundColor: '#ebedef',
   minHeight: '100',
   position: 'fixed',
@@ -48,9 +51,9 @@ const footerStyle = {
 
 const navigation = [
   {
-    key: '/hello-world',
-    label: 'Hello World',
-    icon: <StarOutlined />
+    key: '/zodiac',
+    label: 'Zodiac',
+    icon: <RedditOutlined />
   },
   {
     key: '/unit-converter',
@@ -74,14 +77,6 @@ const navigation = [
   }
 ];
 
-function HelloWorld() {
-  return (
-    <div>
-      <h1>Hello World!</h1>
-    </div>
-  );
-}
-
 function HomePage() {
   return (
     <div>
@@ -96,12 +91,13 @@ function MySider({collapsed, toggleCollapsed}) {
   const selectedKey = location.pathname;
   return (
     <Sider collapsed={collapsed} onCollapse={toggleCollapsed} style={siderStyle}>
-      <Menu selectedKeys={[selectedKey]}
+      <Menu selectedKeys={[selectedKey] }
+        theme="light"
         mode="inline"
         style={{
           height: '100%',
-          backgroundColor: '#3c4b64',
-          color: 'hsla(0,0%,100%,.6)'
+          backgroundColor: 'white',
+          color: 'darkblue'
         }}
       >
         {navigation.map((item) => (
@@ -130,25 +126,17 @@ function App() {
       >
         <Layout>
           <Header style={headerStyle}>
-            <Space align="left">
-              <Image src={Kits} style={{width: 32, height: 32}}/>
-              {/* <Title style={{
-                fontSize: 20,
-                color: 'white',
-                marginTop: 15
-              }}>
-                <AppstoreOutlined /> Demo applications using AntDesign */}
-                <Button type="primary" onClick={toggleCollapsed}>
-                <MenuOutlined />
+            <Image src={Kits} style={{width: 40, height: 40}}/>
+              <Button type="primary" shape='circle' size='large' icon={<MenuOutlined />} onClick={toggleCollapsed} style={{marginLeft: '1em'}}>
               </Button>
-            </Space>
+              <Title level={3} style={{color: '#ffffff', margin: 'auto'}}>Demo App using AntDesign</Title>
           </Header>
           <Layout hasSider>
             <MySider collapsed={collapsed}/>
             <Content style={contentStyle}>
               <Switch>
-                <Route path="/hello-world">
-                  <HelloWorld />
+                <Route path="/zodiac">
+                  <ZodiacApp />
                 </Route>
                 <Route path="/unit-converter">
                   <UnitConverter />

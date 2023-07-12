@@ -11,10 +11,6 @@
   color: #2c3e50;
 }
 
-.input-container {
-  margin-bottom: 16px;
-}
-
 .input-label {
   color: #2c3e50;
   margin-right: 16px;
@@ -29,7 +25,7 @@
 }
 
 .unit-type-select {
-  width: 150px;
+  width: 90px;
   margin-right: 16px;
 }
 
@@ -38,7 +34,7 @@
 }
 
 .unit-select {
-  width: 150px;
+  width: 100px;
   margin-right: 16px;
 }
 

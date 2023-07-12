@@ -6,8 +6,6 @@ import { Layout, Typography, Space } from 'antd';
 const {Title} = Typography
 let operands = [];
 let curOperator = null;
-let storedOperands = [];
-let storedOperators = [];
 
 function Calculator() {
   const [value, setValue] = useState("0");
@@ -32,8 +30,6 @@ function Calculator() {
     setResult("");
     curOperator=null;
     operands=[];
-    storedOperands=[];
-    storedOperators=[];
   }
 
   function handleClearOne(){
@@ -70,66 +66,36 @@ function Calculator() {
   }
 
   function handleOperator(operator){
-    if(operands.length === 0){
+    if(operands.length<1){
+      curOperator=operator;
       operands.push(+value);
-      curOperator = operator;
       setValue("");
       setResult(`${value}${operator}`);
-    } else {
+    }
+    else if (operands.length < 2) {
       operands.push(+value);
-      storedOperands.push(...operands);
-      storedOperators.push(curOperator);
+      let result = evaluate(operands, curOperator);
+      operands = [];
+      operands.push(+result);
       curOperator = operator;
       setValue("");
-      setResult(`${evaluate(storedOperands, storedOperators)}${operator}`);
-      operands = [];
-      storedOperands = [];
+      setResult(`${result}${operator}`);
     }
   }
 
   function handleEqual(){
-    if (operands.length === 0) {
-      return; 
-    }
-    operands.push(+value);
-    storedOperands.push(...operands);
-    storedOperators.push(curOperator);
-  
-    let i = 0;
-    while (i < storedOperators.length) {
-      if (storedOperators[i] === '*' || storedOperators[i] === '/') {
-        storedOperands.splice(i, 2, evaluate([storedOperands[i], storedOperands[i+1]], [storedOperators[i]]));
-        storedOperators.splice(i, 1);
-      } else {
-        i++;
-      }
-    }
-  
-    let result = storedOperands[0];
-    for(let i = 0; i < storedOperators.length; i++) {
-      switch(storedOperators[i]) {
-        case '+':
-          result += storedOperands[i+1];
-          break;
-        case '-':
-          result -= storedOperands[i+1];
-          break;
-        default:
-          break;
-      }
-    }
-  
-    if(isNaN(result)){
-      setResult("Error");
-    }
-    else{
-      operands = [];
-      operands.push(+result);
-      setValue(`${result}`);
-      setResult("");
-      storedOperands = [];
-      storedOperators = [];
-    }
+        operands.push(+value);
+        let result = evaluate(operands, curOperator);
+        if(result===undefined){
+          setResult(`${value}`);
+        }
+        else{
+          operands = [];
+          operands.push(+result);
+          setValue(`${result}`);
+          setResult("");
+          operands = [];
+        }
   }
   
   const buttons =[
