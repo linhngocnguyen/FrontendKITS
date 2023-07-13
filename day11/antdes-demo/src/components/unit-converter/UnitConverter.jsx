@@ -43,27 +43,36 @@ const UnitConverter = () => {
       USD: {
         EUR: 0.842,
         GBP: 0.726,
-        JPY: 110.80
+        JPY: 110.80,
+        VND: 22760.00
       },
       EUR: {
         USD: 1.187,
         GBP: 0.864,
-        JPY: 131.49
+        JPY: 131.49,
+        VND: 26901.54
       },
       GBP: {
         USD: 1.376,
         EUR: 1.157,
-        JPY: 152.88
+        JPY: 152.88,
+        VND: 31129.31
       },
       JPY: {
         USD: 0.00903,
         EUR: 0.00760,
-        GBP: 0.00652
+        GBP: 0.00652,
+        VND: 133.56
+      },
+      VND: {
+        USD: 0.000044,
+        EUR: 0.000037,
+        GBP: 0.000032,
+        JPY: 0.0075
       }
     };
-    const fromRate = exchangeRates[from][to];
-    const toRate = exchangeRates[to][from];
-    return value * fromRate / toRate;
+    const rate = exchangeRates[from][to];
+    return value * rate;
   };
 
   const handleInputChange = (value) => {
@@ -108,7 +117,7 @@ const UnitConverter = () => {
   } else if (unitType === 'mass') {
     unitOptions = ['--Select an unit--', 'kilograms', 'pounds', 'ounces', 'grams', 'tons'];
   } else if (unitType === 'currency') {
-    unitOptions = ['--Select an unit--', 'USD', 'EUR', 'GBP', 'JPY'];
+    unitOptions = ['--Select an unit--', 'USD', 'EUR', 'GBP', 'JPY', 'VND'];
   }
 
   return (

@@ -1,11 +1,11 @@
 .Cell-Black {
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     background: black;
 }
 
 .Cell-White {
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     background: #ccc;
 }

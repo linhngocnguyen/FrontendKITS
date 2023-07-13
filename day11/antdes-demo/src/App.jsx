@@ -1,20 +1,22 @@
-import { Layout, Space, Typography, Menu, Button, Image} from 'antd';
-import { BorderOutlined, ClockCircleOutlined, CalculatorOutlined, MenuOutlined, ArrowsAltOutlined, RedditOutlined} from '@ant-design/icons';
+import { Layout, Space, Typography, Menu, Button, Calendar, Avatar, Divider} from 'antd';
+import { TableOutlined, ClockCircleOutlined, CalculatorOutlined, MenuOutlined, TransactionOutlined, RedditOutlined, BookOutlined, UserOutlined, HomeOutlined} from '@ant-design/icons';
 import { BrowserRouter as Router, Switch, Route, Link, useLocation } from "react-router-dom";
 import { useState } from 'react';
 import ChessBoard from './components/chess/ChessBoard';
 import Calculator from './components/calculator/Calculator'
 import Pomodoro from './components/pomodoro/Pomodoro';
 import UnitConverter from './components/unit-converter/UnitConverter';
-import Kits from './assets/kits.jpg'
+import Kits from './components/icons/Kits';
 import ZodiacApp from './components/zodiac/Zodiac';
+import QuoteOfTheDay from './components/quote/QuoteOfTheDay';
+import NotFound from './components/notfound/NotFound';
 
 const { Header, Footer, Sider, Content } = Layout;
 const { Title, Text } = Typography;
 
 const headerStyle = {
   height: 64,
-  backgroundColor: 'deepskyblue',
+  backgroundColor: 'white',
   width: '100%',
   fontSize: '14px',
   fontWeight: 'bold',
@@ -49,7 +51,21 @@ const footerStyle = {
   width: '100%'
 };
 
+const notFoundStyle = {
+  height: '100vh',
+  width: '100vw',
+  backgroundColor: '#f5f5f5',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+};
+
 const navigation = [
+  {
+    key: '/',
+    label: 'Home',
+    icon: <HomeOutlined />
+  },
   {
     key: '/zodiac',
     label: 'Zodiac',
@@ -58,7 +74,7 @@ const navigation = [
   {
     key: '/unit-converter',
     label: 'Unit Converter',
-    icon: <ArrowsAltOutlined /> 
+    icon: <TransactionOutlined />
   },
   {
     key: '/calculator',
@@ -68,21 +84,24 @@ const navigation = [
   {
     key: '/chess-board',
     label: 'Chessboard',
-    icon: <BorderOutlined />
+    icon: <TableOutlined />
   },
   {
     key: '/pomodoro',
     label: 'Pomodoro',
     icon: <ClockCircleOutlined />
+  },
+  {
+    key: '/quote',
+    label: 'Quote',
+    icon: <BookOutlined />
   }
 ];
-
 function HomePage() {
-  return (
-    <div>
-      <h1>Please select a mini app from the sidebar</h1>
-    </div>
-  );
+  const onPanelChange = (value, mode) => {
+    console.log(value.format('YYYY-MM-DD'), mode);
+  };
+  return <Calendar style={{height: '100%'}} onPanelChange={onPanelChange} />;
 }
 
 // eslint-disable-next-line react/prop-types
@@ -97,7 +116,8 @@ function MySider({collapsed, toggleCollapsed}) {
         style={{
           height: '100%',
           backgroundColor: 'white',
-          color: 'darkblue'
+          color: 'darkblue',
+          textAlign: 'left'
         }}
       >
         {navigation.map((item) => (
@@ -126,10 +146,16 @@ function App() {
       >
         <Layout>
           <Header style={headerStyle}>
-            <Image src={Kits} style={{width: 40, height: 40}}/>
-              <Button type="primary" shape='circle' size='large' icon={<MenuOutlined />} onClick={toggleCollapsed} style={{marginLeft: '1em'}}>
+              {/* <Image src={Kits} preview={false} style={{width: 24, height: 24}}/> */}
+              <Kits collapsed={collapsed}/>
+              <Divider type='vertical' style={{height: 64}}/>
+              <Button shape='circle' size='large' icon={<MenuOutlined />} onClick={toggleCollapsed} style={{marginLeft: '1em'}}>
               </Button>
-              <Title level={3} style={{color: '#ffffff', margin: 'auto'}}>Demo App using AntDesign</Title>
+            <Title level={3} style={{margin: 'auto'}}>Demo App using AntDesign</Title>
+            <Space>
+              <Avatar size="large" icon={<UserOutlined />} /> 
+              <Text strong>Nguyen Ngoc Linh</Text>
+            </Space>
           </Header>
           <Layout hasSider>
             <MySider collapsed={collapsed}/>
@@ -150,8 +176,14 @@ function App() {
                 <Route path="/pomodoro">
                   <Pomodoro />
                 </Route>
-                <Route path="/">
+                <Route path="/quote">
+                  <QuoteOfTheDay />
+                </Route>
+                <Route exact path="/">
                   <HomePage />
+                </Route>
+                <Route path = "*">
+                  <NotFound style={notFoundStyle}/>
                 </Route>
               </Switch>
             </Content>
