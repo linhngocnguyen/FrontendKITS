@@ -1,0 +1,100 @@
+/* Add these styles to your CSS file */
+
+/* Set the font family and font size */
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+
+/* Style the container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* Style the heading */
+.text-primary {
+  color: #1877f2;
+}
+
+/* Style the input fields */
+.form-control {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+/* Style the login button */
+.btn-primary {
+  background-color: #1877f2;
+  border-color: #1877f2;
+  color: #fff;
+  font-weight: bold;
+}
+
+.btn-primary:hover {
+  background-color: #1163a3;
+  border-color: #1163a3;
+}
+
+/* Style the forgotten password link */
+.text-decoration-none {
+  color: #1877f2;
+}
+
+/* Style the create account button */
+.btn-success {
+  background-color: #42b72a;
+  border-color: #42b72a;
+  color: #fff;
+  font-weight: bold;
+}
+
+.btn-success:hover {
+  background-color: #36a420;
+  border-color: #36a420;
+}
+
+/* Add a margin to the bottom of the modal */
+.modal-content {
+  margin-bottom: 20px;
+}
+
+/* Style the modal header */
+.modal-header {
+  border-bottom: none;
+}
+
+/* Style the modal title */
+.modal-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Style the modal body */
+.modal-body {
+  padding: 0;
+}
+
+/* Style the form labels */
+.form-label {
+  font-weight: bold;
+}
+
+/* Style the gender select */
+.form-select {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+/* Style the custom gender input */
+.custom-gender {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
