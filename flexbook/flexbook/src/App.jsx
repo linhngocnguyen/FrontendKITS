@@ -25,14 +25,14 @@ function Flexbook() {
 
     try {
       // Send a POST request to the API
-      const response = await fetch('/users/register', {
+      const response = await fetch('http://localhost:8081/users/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(formData)
       });
-
+      console.log(response);
       if (response.ok) {
         // Registration was successful
         console.log('Registration successful!');
